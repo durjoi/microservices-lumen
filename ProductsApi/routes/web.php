@@ -16,3 +16,14 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->group(['prefix' => 'product'], function () use ($router) {
+        $router->get('/', ['uses' => 'ProductController@index']);
+        $router->post('/', ['uses' => 'ProductController@store']);
+        $router->get('/{product}', ['uses' => 'ProductController@show']);
+        $router->patch('/{product}', ['uses' => 'ProductController@update']);
+        $router->delete('/{product}', ['uses' => 'ProductController@destroy']);
+    });
+});
