@@ -16,3 +16,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->group(['prefix' => 'order'], function () use ($router) {
+        $router->get('/', ['uses' => 'OrderController@index']);
+        $router->post('/', ['uses' => 'OrderController@store']);
+        $router->get('/{order}', ['uses' => 'OrderController@show']);
+        $router->patch('/{order}', ['uses' => 'OrderController@update']);
+        $router->delete('/{order}', ['uses' => 'OrderController@destroy']);
+    });
+});
